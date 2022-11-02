@@ -23,11 +23,7 @@ const AuthProvider = ({ children }) => {
         return signInWithEmailAndPassword(auth, email, password);
     }
 
-    //signInWithPopupGoogle
-    const providerLogin = (provider) => {
-        return signInWithPopup(auth, provider);
-    }
-
+    // using for Create User AND Sign In user
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, currentUser => {
             console.log(currentUser);
@@ -39,12 +35,29 @@ const AuthProvider = ({ children }) => {
 
     }, [])
 
+    //signInWithPopupGoogle
+    const providerLoginGoogle = (provider) => {
+        return signInWithPopup(auth, provider);
+    }
+    // signInWithPopupFacebook
+    const providerLoginFacebook = (provider) => {
+        return signInWithPopup(auth, provider);
+    }
+    // signInWithPopupFacebook
+    const providerLoginGithub = (provider) => {
+        return signInWithPopup(auth, provider);
+    }
+
+
+
     const authInfo = {
         user,
         loading,
         createUser,
         signInUser,
-        providerLogin
+        providerLoginGoogle,
+        providerLoginFacebook,
+        providerLoginGithub
     }
 
     return (

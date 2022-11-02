@@ -1,4 +1,4 @@
-import { GoogleAuthProvider } from 'firebase/auth';
+import { FacebookAuthProvider, GithubAuthProvider, GoogleAuthProvider } from 'firebase/auth';
 import React, { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import img from '../../assets/images/login/login.svg'
@@ -8,14 +8,16 @@ import { FaFacebook, FaGithub } from 'react-icons/fa';
 
 
 const Login = () => {
-    const { signInUser, providerLogin } = useContext(AuthContext);
+    const { signInUser, providerLoginGoogle, providerLoginFacebook, providerLoginGithub } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const googleProvider = new GoogleAuthProvider();
+    const facebookProvider = new FacebookAuthProvider();
+    const githubProvider = new GithubAuthProvider();
 
+    // signInWithEmailAndPassword:
     const handleLogin = event => {
         event.preventDefault();
-
         const form = event.target;
         const email = form.email.value;
         const password = form.password.value;
@@ -32,13 +34,36 @@ const Login = () => {
 
     // signInWithGoogle
     const handleSignInWithGoogle = () => {
-        providerLogin(googleProvider)
+        providerLoginGoogle(googleProvider)
             .then(result => {
                 const user = result.user;
                 console.log(user);
+                navigate('/');
             })
             .catch(err => console.log(err));
     }
+
+    // signInWithFacebook
+    const handleSignInWithFacebook = () => {
+        providerLoginFacebook(facebookProvider)
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+                navigate('/');
+            })
+            .catch(err => console.error(err));
+    }
+    // SignInWithGitHub
+    const handleSignInWithGitHub = () => {
+        providerLoginGithub(githubProvider)
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+                navigate('/');
+            })
+            .catch(err => console.error(err));
+    }
+
 
     return (
         <div className="hero w-full my-20">
@@ -70,10 +95,10 @@ const Login = () => {
                     </form>
                     <p className='text-center'>New to Genius Car? <Link className='text-orange-600 font-bold' to='/signup'>Sign Up</Link></p>
 
-                    <div className='flex'>
-                        <button onClick={handleSignInWithGoogle} className="btn btn-outline btn-primary mx-auto"><FcGoogle></FcGoogle></button>
-                        <button onClick={handleSignInWithGoogle} className="btn btn-outline btn-primary mx-auto"><FaFacebook></FaFacebook></button>
-                        <button onClick={handleSignInWithGoogle} className="btn btn-outline btn-primary mx-auto"><FaGithub></FaGithub></button>
+                    <div className='flex justify-center'>
+                        <button onClick={handleSignInWithGoogle} className="btn btn-outline btn-primary border-none"><FcGoogle className='text-2xl'></FcGoogle></button>
+                        <button onClick={handleSignInWithFacebook} className="btn btn-outline btn-primary border-none"><FaFacebook className='text-2xl'></FaFacebook></button>
+                        <button onClick={handleSignInWithGitHub} className="btn btn-outline btn-primary border-none"><FaGithub className='text-2xl'></FaGithub></button>
                     </div>
 
                 </div>
