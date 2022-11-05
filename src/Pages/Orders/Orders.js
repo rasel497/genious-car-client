@@ -26,7 +26,7 @@ const Orders = () => {
     }, [user?.email, logOut]);
 
 
-    // order delete >Delete Operation >Delete a Document
+    // order delete >Delete Operation >Delete a Document.
     const handleDelete = id => {
         const proceed = window.confirm('Are you sure, you want to cancel this order');
         if (proceed) {
