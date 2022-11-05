@@ -34,7 +34,7 @@ const CheckOut = () => {
         // }
 
         // for create order in post api data
-        fetch('http://localhost:5000/orders', {
+        fetch('https://genious-car-server-eosin.vercel.app/orders', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',
