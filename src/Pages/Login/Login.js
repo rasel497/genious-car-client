@@ -5,18 +5,20 @@ import img from '../../assets/images/login/login.svg'
 import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider';
 import { FcGoogle } from 'react-icons/fc';
 import { FaFacebook, FaGithub } from 'react-icons/fa';
+import SocialLogin from '../Shared/SocialLogin/SocialLogin';
 
 
 const Login = () => {
-    const { signInUser, providerLoginGoogle, providerLoginFacebook, providerLoginGithub } = useContext(AuthContext);
+    // const { signInUser, providerLoginGoogle, providerLoginFacebook, providerLoginGithub } = useContext(AuthContext);
+    const { signInUser } = useContext(AuthContext);
     const location = useLocation();
     const navigate = useNavigate();
 
     const from = location.state?.from?.pathname || '/';
 
-    const googleProvider = new GoogleAuthProvider();
-    const facebookProvider = new FacebookAuthProvider();
-    const githubProvider = new GithubAuthProvider();
+    // const googleProvider = new GoogleAuthProvider();
+    // const facebookProvider = new FacebookAuthProvider();
+    // const githubProvider = new GithubAuthProvider();
 
     // signInWithEmailAndPassword:
     const handleLogin = event => {
@@ -54,38 +56,39 @@ const Login = () => {
             .catch(err => console.log(err));
     }
 
-    // signInWithGoogle
-    const handleSignInWithGoogle = () => {
-        providerLoginGoogle(googleProvider)
-            .then(result => {
-                const user = result.user;
-                console.log(user);
-                navigate(from, { replace: true });
-            })
-            .catch(err => console.log(err));
-    }
-
-    // signInWithFacebook
-    const handleSignInWithFacebook = () => {
-        providerLoginFacebook(facebookProvider)
-            .then(result => {
-                const user = result.user;
-                console.log(user);
-                navigate(from, { replace: true });
-            })
-            .catch(err => console.error(err));
-    }
-    // SignInWithGitHub
-    const handleSignInWithGitHub = () => {
-        providerLoginGithub(githubProvider)
-            .then(result => {
-                const user = result.user;
-                console.log(user);
-                navigate(from, { replace: true });
-            })
-            .catch(err => console.error(err));
-    }
-
+    /*
+        // signInWithGoogle
+        const handleSignInWithGoogle = () => {
+            providerLoginGoogle(googleProvider)
+                .then(result => {
+                    const user = result.user;
+                    console.log(user);
+                    navigate(from, { replace: true });
+                })
+                .catch(err => console.log(err));
+        }
+    
+        // signInWithFacebook
+        const handleSignInWithFacebook = () => {
+            providerLoginFacebook(facebookProvider)
+                .then(result => {
+                    const user = result.user;
+                    console.log(user);
+                    navigate(from, { replace: true });
+                })
+                .catch(err => console.error(err));
+        }
+        // SignInWithGitHub
+        const handleSignInWithGitHub = () => {
+            providerLoginGithub(githubProvider)
+                .then(result => {
+                    const user = result.user;
+                    console.log(user);
+                    navigate(from, { replace: true });
+                })
+                .catch(err => console.error(err));
+        }
+    */
 
     return (
         <div className="hero w-full my-20">
@@ -117,11 +120,13 @@ const Login = () => {
                     </form>
                     <p className='text-center'>New to Genius Car? <Link className='text-orange-600 font-bold' to='/signup'>Sign Up</Link></p>
 
-                    <div className='flex justify-center'>
+                    <SocialLogin></SocialLogin>
+
+                    {/* <div className='flex justify-center'>
                         <button onClick={handleSignInWithGoogle} className="btn btn-outline btn-primary border-none"><FcGoogle className='text-2xl'></FcGoogle></button>
                         <button onClick={handleSignInWithFacebook} className="btn btn-outline btn-primary border-none"><FaFacebook className='text-2xl'></FaFacebook></button>
                         <button onClick={handleSignInWithGitHub} className="btn btn-outline btn-primary border-none"><FaGithub className='text-2xl'></FaGithub></button>
-                    </div>
+                    </div> */}
 
                 </div>
 

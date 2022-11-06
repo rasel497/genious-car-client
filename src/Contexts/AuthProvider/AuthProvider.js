@@ -1,15 +1,19 @@
 import React, { createContext, useState, useEffect } from 'react';
-import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, GoogleAuthProvider, FacebookAuthProvider, GithubAuthProvider } from "firebase/auth";
 import app from '../../firebase/firebase.config';
 
 
 export const AuthContext = createContext();
 const auth = getAuth(app);
 
+const googleProvider = new GoogleAuthProvider();
+const facebookProvider = new FacebookAuthProvider();
+const githubProvider = new GithubAuthProvider();
 
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
+
 
     // createUserWithEmailAndPassword:
     const createUser = (email, password) => {
@@ -40,23 +44,43 @@ const AuthProvider = ({ children }) => {
             unsubscribe();
         }
 
-    }, [])
+    }, []);
 
-    //signInWithPopupGoogle
-    const providerLoginGoogle = (provider) => {
+    //----------------socialLogin start-----------------------
+    // signInWithPopupGoogle
+    const googleSignIn = () => {
         setLoading(true);
-        return signInWithPopup(auth, provider);
+        return signInWithPopup(auth, googleProvider);
     }
     // signInWithPopupFacebook
-    const providerLoginFacebook = (provider) => {
+    const facebookSignIn = () => {
         setLoading(true);
-        return signInWithPopup(auth, provider);
+        return signInWithPopup(auth, facebookProvider);
     }
-    // signInWithPopupFacebook
-    const providerLoginGithub = (provider) => {
+    // signInWithPopupGitHub
+    const gitHubSignIn = () => {
         setLoading(true);
-        return signInWithPopup(auth, provider);
+        return signInWithPopup(auth, githubProvider);
     }
+    //----------------socialLogin end------------------------
+
+
+    // // signInWithPopupGoogle
+    // const providerLoginGoogle = (provider) => {
+    //     setLoading(true);
+    //     return signInWithPopup(auth, provider);
+    // }
+
+    // // signInWithPopupFacebook
+    // const providerLoginFacebook = (provider) => {
+    //     setLoading(true);
+    //     return signInWithPopup(auth, provider);
+    // }
+    // // signInWithPopupGitHub
+    // const providerLoginGithub = (provider) => {
+    //     setLoading(true);
+    //     return signInWithPopup(auth, provider);
+    // }
 
 
 
@@ -65,10 +89,13 @@ const AuthProvider = ({ children }) => {
         loading,
         createUser,
         signInUser,
-        providerLoginGoogle,
-        providerLoginFacebook,
-        providerLoginGithub,
-        logOut
+        // providerLoginGoogle,
+        // providerLoginFacebook,
+        // providerLoginGithub,
+        logOut,
+        googleSignIn,
+        facebookSignIn,
+        gitHubSignIn
 
     }
 
